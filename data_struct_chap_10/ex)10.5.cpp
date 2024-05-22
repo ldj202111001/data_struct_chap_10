@@ -1,10 +1,9 @@
-ï»¿/*
-* í”„ë¡œê·¸ë¨ ë‚´ìš©: ìµœëŒ€ í™ íŠ¸ë¦¬ í…ŒìŠ¤íŠ¸ í”„ë¡œê·¸ë¨
-* ì‹¤ìŠµë‚ ì§œ: 2024 - 05 -22
-* í•™ë²ˆ: 202111001
-* ì´ë¦„: ì´ë™ì¬
+/*
+* ÇÁ·Î±×·¥ ³»¿ë: Èü Á¤·Ä ÇÁ·Î±×·¥
+* ½Ç½À³¯Â¥: 2024 - 05 -22
+* ÇĞ¹ø: 202111001
+* ÀÌ¸§: ÀÌµ¿Àç
 */
-// 10.4, 10.5
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX_HEAP_NODE 200
@@ -15,13 +14,13 @@ void error(const char str[])
     exit(1);
 }
 
-typedef int HNode; // í™ì— ì €ì¥í•  í•­ëª©ì˜ ìë£Œí˜•
-#define Key(n) (n) // í™ ë…¸ë“œ nì˜ í‚¤ê°’
-HNode heap[MAX_HEAP_NODE]; // ë°°ì—´ì„ ì´ìš©í•´ êµ¬í˜„í•œ í™(í™ë…¸ë“œ ë°°ì—´)
-int heap_size; // í™ì˜ í¬ê¸°
-#define Parent(i) (heap[i/2]) // iì˜ ë¶€ëª¨ ë…¸ë“œ
-#define Left(i) (heap[i*2]) // iì˜ ì™¼ìª½ ìì‹ ë…¸ë“œ
-#define Right(i) (heap[i*2+1]) // iì˜ ì˜¤ë¥¸ìª½ ìì‹ ë…¸ë“œ
+typedef int HNode; // Èü¿¡ ÀúÀåÇÒ Ç×¸ñÀÇ ÀÚ·áÇü
+#define Key(n) (n) // Èü ³ëµå nÀÇ Å°°ª
+HNode heap[MAX_HEAP_NODE]; // ¹è¿­À» ÀÌ¿ëÇØ ±¸ÇöÇÑ Èü(Èü³ëµå ¹è¿­)
+int heap_size; // ÈüÀÇ Å©±â
+#define Parent(i) (heap[i/2]) // iÀÇ ºÎ¸ğ ³ëµå
+#define Left(i) (heap[i*2]) // iÀÇ ¿ŞÂÊ ÀÚ½Ä ³ëµå
+#define Right(i) (heap[i*2+1]) // iÀÇ ¿À¸¥ÂÊ ÀÚ½Ä ³ëµå
 void init_heap() { heap_size = 0; }
 int is_empty_heap() { return heap_size == 0; }
 int is_full_heap() { return (heap_size == MAX_HEAP_NODE - 1); }
@@ -56,14 +55,15 @@ HNode delete_heap()
             child *= 2;
         }
         heap[parent] = last;
+        return hroot;
     }
-    return hroot;
+
 }
 
 void print_heap()
 {
     int i, level;
-    for (i = 1, level = 1; i <= heap_size ; i++)
+    for (i = 1, level = 1; i <= heap_size; i++)
     {
         if (i == level)
         {
@@ -75,16 +75,26 @@ void print_heap()
     printf("\n---------------");
 }
 
-int main()
+void print_array(int a[], int n, const char* msg)
 {
-    init_heap();
-    insert_heap(2);   insert_heap(5);
-    insert_heap(4);   insert_heap(8);
-    insert_heap(9);   insert_heap(3);
-    insert_heap(7);   insert_heap(3);
-    print_heap();
-
-    delete_heap();   print_heap();
-    delete_heap();   print_heap();
+    int i;
+    printf("%10s: ", msg);
+    for (int i = 0; i < n; i++)
+        printf("%3d", a[i]);
     printf("\n");
-} 
+}
+
+void main()
+{
+    int i, data[10];
+    // ³­¼ö ¹è¿­ »ı¼º
+    for (i = 0; i < 10; i++)
+        data[i] = rand() % 100;
+    print_array(data, 10, "Á¤·Ä Àü");
+    init_heap();
+    for (i = 0; i < 10; i++)
+        insert_heap(data[i]);
+    for (i = 9; i >= 0; i--)
+        data[i] = Key(delete_heap());
+    print_array(data, 10, "Á¤·Ä ÈÄ");
+}
