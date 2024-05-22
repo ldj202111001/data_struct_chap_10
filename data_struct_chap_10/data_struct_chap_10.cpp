@@ -1,4 +1,11 @@
-﻿#include <stdio.h>
+﻿/*
+* 프로그램 내용: 최대 힙 트리 테스트 프로그램
+* 실습날짜: 2024 - 05 -22
+* 학번: 202111001
+* 이름: 이동재
+*/
+// 10.4, 10.5
+#include <stdio.h>
 #include <stdlib.h>
 #define MAX_HEAP_NODE 200
 
